@@ -1,6 +1,7 @@
 import * as React from 'react';
 import "./login.css"
 import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
 import PositionedSnackbar from "./snakBar"
 import Avatar from '@mui/material/Avatar';
 import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
@@ -15,8 +16,9 @@ import { Link } from "react-router-dom";
 
 
 function Signup() {
+
     const avatarStyle={backgroundColor:'#e1b830'}
-    const butStyle={backgroundColor:'#e1b830', margin:'2rem 0 2rem 0'}
+    const butStyle={backgroundColor:'#e1b830', margin:'1rem 1rem 1rem 3rem'}
     const [value, setValue] = React.useState(new Date('2014-08-18T21:11:54'));
     
 
@@ -57,7 +59,10 @@ function Signup() {
       <TextField id="outlined-basic" label="Phone number" type='tel' variant="outlined" required />
       <TextField id="outlined-basic" label="Username" variant="outlined" required />
       <TextField id="outlined-basic" label="Password" type='password' variant="outlined" required/>
+      <Stack spacing={2} direction="row">
       <Button style={butStyle}  variant="contained" type='submit' >Sing Up</Button>
+      <Button style={butStyle}  variant="contained" type='submit' >Ignore</Button>
+      </Stack>
       <Link to="/Login"> Already have an account? Click here! </Link>
 
     </Box>
