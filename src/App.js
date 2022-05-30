@@ -9,7 +9,8 @@ import Grid from '@mui/material/Grid';
 function App() {
 
   const navStyle={borderBottom: "solid .1rem white", padding: "1.5rem", backgroundColor:' rgb(255, 255, 255, 0.8)'};
-  const textStyle={margin:'15rem 0', fontSize: '2rem',}
+  const footerStyle={borderTop: "solid .1rem white", padding: ".1rem", backgroundColor:' rgb(255, 255, 255, 0.8)'};
+  const textStyle={margin:'15rem 0', fontSize: '2rem',};
 
 
   return (
@@ -26,6 +27,11 @@ function App() {
       <h1>Phey shop</h1>
       <h3>Welcome to Phey shop :)</h3>
       </div>
+      </Grid>
+      <Grid align='center'>
+      <footer style={footerStyle}>
+        <p>Hand-crafted with love &#10084;</p>
+      </footer>
       </Grid>
     </div>  );
 }

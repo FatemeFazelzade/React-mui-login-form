@@ -51,15 +51,16 @@ function Login() {
 
     const checkUser  = (e) => {
       e.preventDefault();
-
+     
     const dataFromStorage = JSON.parse(window.localStorage.getItem('Information'))
       for (let i = 0; i < dataFromStorage.length - 1 ; i++) {
-        if (dataFromStorage.username[i] === currentUsername && dataFromStorage.password[i] === currentPassword) {
+     
+        if (dataFromStorage[i].username === currentUsername && dataFromStorage[i].password === currentPassword) {
+          console.log ('heeey');
+          handleOpen(); 
 
-          handleOpen();
-         
         } else {
-console.log ('hi!')
+
           handleClick({
             vertical: 'bottom',
             horizontal: 'center',
@@ -102,7 +103,7 @@ console.log ('hi!')
                 Text in a modal
               </Typography>
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                Welcome!
               </Typography>
             </Box>
           </Modal>
@@ -110,7 +111,7 @@ console.log ('hi!')
             anchorOrigin={{ vertical, horizontal }}
             open={open}
             onClose={handleClose}
-            message="I love snacks"
+            message="Wrong username or password"
             key={vertical + horizontal}
           />
     </Box>
