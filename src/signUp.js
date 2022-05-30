@@ -3,7 +3,6 @@ import { useState } from 'react';
 import "./login.css"
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
-import PositionedSnackbar from "./snakBar"
 import Avatar from '@mui/material/Avatar';
 import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
 import TextField from '@mui/material/TextField';
@@ -25,13 +24,10 @@ function Signup() {
  let [phoneNumber, setPhonenumber] = useState('');
  let [userName, setUsername] = useState('');
  let [password, setPassword] = useState('');
-
-
- 
  
   const submitForm = (e) => {
     e.preventDefault(); 
-    
+    if(name && familyName && birth && age && phoneNumber && userName && password ){
     if (!JSON.parse(window.localStorage.getItem('Information'))) {
     const allInfo= []
     allInfo.push({
@@ -60,11 +56,14 @@ function Signup() {
   };
     alert("Congrats, adding new product was successful!");
     window.location.reload(false);
+  } else {
+    alert("Please complete the required information!!!");
+  }
  };
 
 
     const avatarStyle={backgroundColor:'#e1b830'}
-    const butStyle={backgroundColor:'#e1b830', margin:'1rem 1rem 1rem 3rem'}
+    const butStyle={backgroundColor:'#e1b830', margin:'1rem 1rem 1rem 3rem',} 
     const handleChange = (newValue) => {
       setBirth(newValue);
     };
@@ -104,14 +103,14 @@ function Signup() {
       <TextField label="Password" type='password' variant="outlined" required value={password} onChange={(e) => setPassword(e.target.value)} />
       <Stack spacing={2} direction="row">
       <Button style={butStyle}  variant="contained" type='submit' onClick={submitForm}>Sing Up</Button>
-      <Button style={butStyle}  variant="contained" type='submit' >Ignore</Button>
+      <Link  style={{ textDecoration: 'none'}}  to="/Login"> 
+      <Button style={butStyle}  variant="contained" type='Button'> Ignore </Button>
+      </Link>
       </Stack>
       <Link to="/Login"> Already have an account? Click here! </Link>
-
     </Box>
         </div>   
     </Grid>
-    <PositionedSnackbar/>
     </React.Fragment>
     );
 }
