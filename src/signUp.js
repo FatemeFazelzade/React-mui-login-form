@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import "./login.css"
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
@@ -17,19 +18,61 @@ import { Link } from "react-router-dom";
 
 function Signup() {
 
+ let [name, setName] = useState('');
+ let [familyName, setFamilyname] = useState('');
+ let [birth, setBirth] = useState(new Date('2014-08-18T21:11:54'));
+ let [age, setAge] = useState('');
+ let [phoneNumber, setPhonenumber] = useState('');
+ let [userName, setUsername] = useState('');
+ let [password, setPassword] = useState('');
+
+
+ 
+ 
+  const submitForm = (e) => {
+    e.preventDefault(); 
+    
+    if (!JSON.parse(window.localStorage.getItem('Information'))) {
+    const allInfo= []
+    allInfo.push({
+      name:{name} ,
+      familyName: {familyName} ,
+      birth:{birth},
+      age:{age},
+      phoneNumber:{phoneNumber},
+      username:{userName},
+      password:{password}
+    });
+  window.localStorage.setItem('Information',JSON.stringify(allInfo));
+  } else {
+
+  const newAllInfo = JSON.parse(window.localStorage.getItem('Information'));
+    newAllInfo.push({
+      name:{name} ,
+      familyName: {familyName} ,
+      birth:{birth},
+      age:{age},
+      phoneNumber:{phoneNumber},
+      username:{userName},
+      password:{password}
+    });
+  window.localStorage.setItem('Information',JSON.stringify(newAllInfo));
+  };
+    alert("Congrats, adding new product was successful!");
+    window.location.reload(false);
+ };
+
+
     const avatarStyle={backgroundColor:'#e1b830'}
     const butStyle={backgroundColor:'#e1b830', margin:'1rem 1rem 1rem 3rem'}
-    const [value, setValue] = React.useState(new Date('2014-08-18T21:11:54'));
-    
-
     const handleChange = (newValue) => {
-      setValue(newValue);
+      setBirth(newValue);
     };
 
     return (
     <React.Fragment> 
     <Grid align='center'>
-        <div className="neo-sign" >
+        <div className="neo-sign">
             <Grid >
         <Avatar style={avatarStyle}  sx={{ width: 44, height: 44 }}>
             <LockOpenTwoToneIcon/>
@@ -43,24 +86,24 @@ function Signup() {
       noValidate
       autoComplete="off"
     >
-      <TextField id="outlined-basic" label="Name" variant="outlined" required />
-      <TextField id="outlined-basic" label="Family name" variant="outlined" required />
+      <TextField label="Name" variant="outlined" required value={name} onChange={(e) => setName(e.target.value)}/>
+      <TextField label="Family name" variant="outlined" required value={familyName} onChange={(e) => setFamilyname(e.target.value)} />
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DesktopDatePicker
           label="Date of birth"
           inputFormat="MM/dd/yyyy"
-          value={value}
+          value={birth}
           onChange={handleChange}
           required
           renderInput={(params) => <TextField {...params} />}
         />
         </LocalizationProvider>
-      <TextField id="outlined-basic" label="Age" type='number' variant="outlined" required />
-      <TextField id="outlined-basic" label="Phone number" type='tel' variant="outlined" required />
-      <TextField id="outlined-basic" label="Username" variant="outlined" required />
-      <TextField id="outlined-basic" label="Password" type='password' variant="outlined" required/>
+      <TextField label="Age" type='number' variant="outlined" required value={age} onChange={(e) => setAge(e.target.value)} />
+      <TextField label="Phone number" type='tel' variant="outlined" required value={phoneNumber} onChange={(e) => setPhonenumber(e.target.value)} />
+      <TextField label="Username" variant="outlined" required value={userName} onChange={(e) => setUsername(e.target.value)} />
+      <TextField label="Password" type='password' variant="outlined" required value={password} onChange={(e) => setPassword(e.target.value)} />
       <Stack spacing={2} direction="row">
-      <Button style={butStyle}  variant="contained" type='submit' >Sing Up</Button>
+      <Button style={butStyle}  variant="contained" type='submit' onClick={submitForm}>Sing Up</Button>
       <Button style={butStyle}  variant="contained" type='submit' >Ignore</Button>
       </Stack>
       <Link to="/Login"> Already have an account? Click here! </Link>

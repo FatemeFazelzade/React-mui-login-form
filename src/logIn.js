@@ -35,8 +35,8 @@ function Login() {
       noValidate
       autoComplete="off"
     >
-      <TextField  id="outlined-basic" label="Username" variant="outlined" required />
-      <TextField  id="outlined-basic" label="Password" type='password' variant="outlined" required/>
+      <TextField label="Username" variant="outlined" required />
+      <TextField label="Password" type='password' variant="outlined" required/>
       <FormControlLabel control={<Checkbox color='default' />} label="Remember me" />
       <Button style={butStyle} variant="contained" type='submit'>Log in</Button>
     </Box>

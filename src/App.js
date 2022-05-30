@@ -16,8 +16,9 @@ function App() {
     <div>
       <nav style={navStyle}>
       <Grid align='center'>
-        <Link className='link' to="/">About us</Link>     
+        <Link className='link' to="/aboutus">About us</Link>     
         <Link className='link' to="/Login">Log in</Link>
+        <Link className='link' to="/home">Home</Link>
       </Grid>
       </nav>
       <Grid  align='center'>
