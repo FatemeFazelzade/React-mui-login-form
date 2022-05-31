@@ -1,5 +1,6 @@
-import * as React from 'react';
-import "./login.css"
+import React from 'react';
+import { useState } from 'react';
+import "./login.css";
 import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
@@ -9,9 +10,10 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Button from '@mui/material/Button';
 import { Link } from "react-router-dom";
-import Snackbar from '@mui/material/Snackbar';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
+import { ToastContainer, toast, Zoom } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -20,54 +22,60 @@ function Login() {
 
  //STYLES//
  const avatarStyle={backgroundColor:'#e1b830'}
- const butStyle={backgroundColor:'#e1b830',  margin:'2rem 0 2rem 0'} 
+ const butStyle={backgroundColor:'#e1b830',  margin:'2rem 0 2rem 0'}
+ const style = {
+  borderRadius:'1rem',
+  width: '30%',
+  height: 'auto' ,
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+  p: 4,
+}; 
 
-//SNAK BAR//
-  const [state, setState] = React.useState({
-    open: false,
-    vertical: 'top',
-    horizontal: 'center',
-  });
-
-  const { vertical, horizontal, open } = state;
-
-  const handleClick = (newState) => () => {
-    setState({ open: true, ...newState });
-  };
-
-  const handleClose = () => {
-    setState({ ...state, open: false });
-  };
+//TOAST//
+const notifyUser = () =>  toast.error("Wrong username or password!", {
+  position: toast.POSITION.BOTTOM_CENTER
+});
 
  //MODAL WINDOW// 
-  const [isOpen, setIsOpen] = React.useState(false);
-  const handleOpen = () => setIsOpen(true);
-  const handleModalClose = () => setIsOpen(false);
-
+  let [name, setName] = useState('')
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleOpen = () => {setIsModalOpen(true);
+  setName(userName)}
+  const handleModalClose = () => setIsModalOpen(false);
+  
 
 //CHECK USERS//    
-    let currentUsername;
-    let currentPassword;
+let [userName, setUsername] = useState('');
+let [password, setPassword] = useState('');
 
     const checkUser  = (e) => {
       e.preventDefault();
-     
+
+    let notify = false; 
     const dataFromStorage = JSON.parse(window.localStorage.getItem('Information'))
-      for (let i = 0; i < dataFromStorage.length - 1 ; i++) {
+
+      for (let i = 0; i < dataFromStorage.length; i++) {
      
-        if (dataFromStorage[i].username === currentUsername && dataFromStorage[i].password === currentPassword) {
-          console.log ('heeey');
+        if (dataFromStorage[i].username.userName === userName && dataFromStorage[i].password.password === password) {
+          
           handleOpen(); 
+          notify = true;  
 
-        } else {
-
-          handleClick({
-            vertical: 'bottom',
-            horizontal: 'center',
-          });
-
-         }
+        }          
     }
+    
+    if (!notify) {
+      console.log('fedoinsdflvkn dfnvdlfknvel;s')
+
+    notifyUser();
+
+  }
+
       }
 
 
@@ -88,35 +96,31 @@ function Login() {
       noValidate
       autoComplete="off"
     >
-      <TextField label="Username" variant="outlined" required value={currentUsername}/>
-      <TextField label="Password" type='password' variant="outlined" required value={currentPassword} />
+      <TextField label="Username" variant="outlined" required value={userName} onChange={(e) => setUsername(e.target.value)}/>
+      <TextField label="Password" type='password' variant="outlined" required value={password} onChange={(e) => setPassword(e.target.value)} />
       <FormControlLabel control={<Checkbox color='default' />} label="Remember me" />
       <Button style={butStyle} variant="contained" type='submit' onClick={checkUser}>Log in</Button>
       <Modal
-            open={isOpen}
+            open={isModalOpen}
             onClose={handleModalClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
-            <Box>
+          <Box  sx={style}>
+            <Grid align='center'> 
               <Typography id="modal-modal-title" variant="h6" component="h2">
-                Text in a modal
+                Hi {name}
               </Typography>
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Welcome!
+                Welcome to Phey shop!
               </Typography>
-            </Box>
-          </Modal>
-      <Snackbar
-            anchorOrigin={{ vertical, horizontal }}
-            open={open}
-            onClose={handleClose}
-            message="Wrong username or password"
-            key={vertical + horizontal}
-          />
+            </Grid>
+          </Box>
+      </Modal>
     </Box>
       <Link to="/Signup"> Haven't signed up yet? Click here! </Link>
         </div>   
+        <ToastContainer transition={Zoom}  role="alert"/>
     </Grid>
     </React.Fragment>
     );

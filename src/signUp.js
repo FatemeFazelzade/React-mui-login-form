@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { useState } from 'react';
 import "./login.css"
 import Grid from '@mui/material/Grid';
@@ -12,6 +12,8 @@ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { Link } from "react-router-dom";
+import { ToastContainer, toast, Zoom } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 
 
@@ -24,6 +26,14 @@ function Signup() {
  let [phoneNumber, setPhonenumber] = useState('');
  let [userName, setUsername] = useState('');
  let [password, setPassword] = useState('');
+
+ //TOAST//
+const submitUser = () =>  toast.success("Now you can lig in! have fun!!", {
+  position: toast.POSITION.BOTTOM_CENTER
+});
+const incompleteForm = () =>  toast.error("Please fill in all the information!", {
+  position: toast.POSITION.BOTTOM_CENTER
+});
  
   const submitForm = (e) => {
     e.preventDefault(); 
@@ -54,10 +64,10 @@ function Signup() {
     });
   window.localStorage.setItem('Information',JSON.stringify(newAllInfo));
   };
-    alert("Congrats, adding new product was successful!");
+  submitUser();
     window.location.reload(false);
   } else {
-    alert("Please complete the required information!!!");
+    incompleteForm();
   }
  };
 
@@ -110,6 +120,7 @@ function Signup() {
       <Link to="/Login"> Already have an account? Click here! </Link>
     </Box>
         </div>   
+        <ToastContainer transition={Zoom}  role="alert"/>
     </Grid>
     </React.Fragment>
     );
